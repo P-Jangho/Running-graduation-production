@@ -9,18 +9,20 @@
     tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnSet"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="end"
         android:src="@drawable/baseline_settings_24"
         android:background="@android:color/transparent"/>
 
-
     <TextView
+        android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="오늘의 날짜"
+        android:textSize="15dp"
+        android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"/>
 
@@ -114,11 +116,17 @@
         </RelativeLayout>
     </LinearLayout>
 
+<!--    <Button-->
+<!--        android:id="@+id/btnP"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="button"-->
+<!--        android:layout_marginTop="20dp"/>-->
+
     <Button
-        android:id="@+id/btnP"
+        android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="button"
-        android:layout_marginTop="20dp"/>
+        android:text="START"/>
 
 </LinearLayout>
