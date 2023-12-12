@@ -18,7 +18,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//        buildConfigField("String", "MY_KEY", properties.getProperty("api.key"))
         buildConfigField "String", "MY_KEY", properties['api.key']
     }
 

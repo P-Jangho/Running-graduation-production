@@ -34,7 +34,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private TextView dateTextView;
@@ -47,9 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private FusedLocationProviderClient fusedLocationClient;
-    private TextView locationTextView;
     private TextView weatherInfoTextView; // 추가된 부분
     private static final String API_KEY = MY_KEY;
+    private double latitude;
+    private double longitude;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         btnStart = findViewById(R.id.btnStart);
         btnSet = findViewById(R.id.btnSet);
 
-        locationTextView = findViewById(R.id.locationTextView);
         weatherInfoTextView = findViewById(R.id.weatherInfoTextView); // 추가된 부분
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -131,10 +130,9 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(this, location -> {
                     if (location != null) {
                         // 위치를 가져와서 텍스트뷰에 표시합니다.
-                        double latitude = location.getLatitude();
-                        double longitude = location.getLongitude();
-                        String locationText = "위도: " + latitude + "\n경도: " + longitude;
-                        locationTextView.setText(locationText);
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+//                        String locationText = "위도: " + latitude + "\n경도: " + longitude;
                     }
                 });
     }
@@ -158,8 +156,6 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try {
                 // 위치 정보를 가져와서 API에 요청하는 코드
-                double latitude = 35.6989;
-                double longitude = 139.6967;
                 String apiUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
                         + latitude + "," + longitude
                         + "?unitGroup=metric&include=days%2Ccurrent&key=" + API_KEY + "&contentType=json";
@@ -219,7 +215,5 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("WeatherActivity", "Error parsing JSON", e);
             }
         }
-
     }
-
 }
