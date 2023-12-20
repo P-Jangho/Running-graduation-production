@@ -1,6 +1,7 @@
 package jp.ac.jec.cm0135.running;
 
 import static jp.ac.jec.cm0135.running.BuildConfig.MY_KEY;
+import static jp.ac.jec.cm0135.running.BuildConfig.MY_KEY2;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,11 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnStart;
     private ImageButton btnSet;
+    private ImageView sunImageView;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private FusedLocationProviderClient fusedLocationClient;
     private TextView weatherInfoTextView; // 추가된 부분
     private static final String API_KEY = MY_KEY;
+    private static final String API_KEY2 = MY_KEY2;
     private double latitude;
     private double longitude;
 
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnStart = findViewById(R.id.btnStart);
         btnSet = findViewById(R.id.btnSet);
+        sunImageView = findViewById(R.id.sunImageView);
 
         weatherInfoTextView = findViewById(R.id.weatherInfoTextView); // 추가된 부분
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -78,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // 권한이 있는 경우 위치 업데이트를 시작합니다.
             requestLocationUpdates();
-            new WeatherTask().execute();
+//            new WeatherTask().execute();
+//            new WeatherTask2().execute();
         }
 
         // 현재 날짜 가져오기
@@ -113,6 +119,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        sunImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
+                intent.putExtra("lat", latitude);
+                intent.putExtra("lon", longitude);
+                startActivity(intent);
+            }
+        });
     }
 
     private void requestLocationUpdates() {
@@ -132,7 +148,8 @@ public class MainActivity extends AppCompatActivity {
                         // 위치를 가져와서 텍스트뷰에 표시합니다.
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-//                        String locationText = "위도: " + latitude + "\n경도: " + longitude;
+
+                        new WeatherTask2().execute();
                     }
                 });
     }
@@ -151,20 +168,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class WeatherTask extends AsyncTask<Void, Void, Void> {
+    private class WeatherTask2 extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                // 위치 정보를 가져와서 API에 요청하는 코드
-                String apiUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
-                        + latitude + "," + longitude
-                        + "?unitGroup=metric&include=days%2Ccurrent&key=" + API_KEY + "&contentType=json";
+                // Construct the URL for the OpenWeatherMap API
+                String apiUrl = "https://api.openweathermap.org/data/2.5/weather" +
+                        "?lat=" + latitude +
+                        "&lon=" + longitude +
+                        "&appid=" + API_KEY2;
 
                 URL url = new URL(apiUrl);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
                 try {
-                    // API 응답을 읽어오기
+                    // Read the API response
                     BufferedReader bufferedReader = new BufferedReader(
                             new InputStreamReader(urlConnection.getInputStream()));
                     StringBuilder stringBuilder = new StringBuilder();
@@ -174,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     bufferedReader.close();
 
-                    // JSON 파싱
+                    // Parse JSON response
                     String jsonResult = stringBuilder.toString();
                     parseJson(jsonResult);
                 } finally {
@@ -188,28 +206,53 @@ public class MainActivity extends AppCompatActivity {
 
         private void parseJson(String json) {
             try {
-                // JSON을 JsonObject로 파싱
+                // Parse the JSON response
                 JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
 
-                // "days" 배열 가져오기
-                JsonArray daysArray = jsonObject.getAsJsonArray("days");
+                // Extract temperature-related information
+                JsonObject mainObject = jsonObject.getAsJsonObject("main");
+                double currentTemp = mainObject.getAsJsonPrimitive("temp").getAsDouble();
+                double feelsLikeTemp = mainObject.getAsJsonPrimitive("feels_like").getAsDouble();
+                double minTemp = mainObject.getAsJsonPrimitive("temp_min").getAsDouble();
+                double maxTemp = mainObject.getAsJsonPrimitive("temp_max").getAsDouble();
 
-                if (daysArray != null && daysArray.size() > 0) {
-                    // "days" 배열의 첫 번째 요소 가져오기
-                    JsonObject firstDayObject = daysArray.get(0).getAsJsonObject();
+                // Extract weather icon
+                JsonArray weatherArray = jsonObject.getAsJsonArray("weather");
+                if (weatherArray != null && weatherArray.size() > 0) {
+                    JsonObject weatherObject = weatherArray.get(0).getAsJsonObject();
+                    String weatherIcon = weatherObject.getAsJsonPrimitive("icon").getAsString();
 
-                    // "temp"과 "icon" 필드 추출
-                    double temp = firstDayObject.getAsJsonPrimitive("temp").getAsDouble();
-                    String icon = firstDayObject.getAsJsonPrimitive("icon").getAsString();
+                    Log.i("aaa", "weatherICON" + weatherIcon);
 
-                    // UI 업데이트를 메인 스레드에서 수행
+                    if (weatherIcon.contains("02")) {
+                        sunImageView.setImageResource(R.drawable.cloud);
+                    } else if (weatherIcon.contains("03") || weatherIcon.contains("04")) {
+                        sunImageView.setImageResource(R.drawable.cloudy);
+                    } else if (weatherIcon.contains("09") || weatherIcon.contains("10")) {
+                        sunImageView.setImageResource(R.drawable.rain);
+                    } else if (weatherIcon.contains("11")) {
+                        sunImageView.setImageResource(R.drawable.cloudy);
+                    } else if (weatherIcon.contains("13")) {
+                        sunImageView.setImageResource(R.drawable.cloudy);
+                    } else if (weatherIcon.contains("50")) {
+                        sunImageView.setImageResource(R.drawable.cloudy);
+                    } else {
+                        return;
+                    }
+
+                    // Update UI on the main thread
                     runOnUiThread(() -> {
-                        // 날씨 정보를 TextView에 표시
-                        String weatherInfo = "날씨: " + icon + "\n온도: " + temp + "°C";
-                        weatherInfoTextView.setText(weatherInfo);
+                        // Display temperature and weather icon information in TextViews
+                        String temperatureInfo = String.format(
+                                "현재 온도: %.2f°C\n체감 온도: %.2f°C\n최저 온도: %.2f°C\n최고 온도: %.2f°C",
+                                currentTemp - 273.15, feelsLikeTemp - 273.15,
+                                minTemp - 273.15, maxTemp - 273.15);
+
+                        weatherInfoTextView.setText(temperatureInfo);
+
+                        // Use weatherIcon as needed, for example, set it to an ImageView
+                        // imageView.setImageResource(getIconResourceId(weatherIcon));
                     });
-                } else {
-                    Log.e("WeatherActivity", "No data available in 'days' array");
                 }
             } catch (Exception e) {
                 Log.e("WeatherActivity", "Error parsing JSON", e);
