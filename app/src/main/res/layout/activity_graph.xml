@@ -5,50 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".GaugeActivity">
-
-    <!-- 게이지 바 -->
-    <ProgressBar
-        android:id="@+id/gaugeProgressBar"
-        style="@style/CustomProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginHorizontal="20dp"
-        android:max="100"
-        android:progress="0"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="week"/>
-
-    <ProgressBar
-        android:id="@+id/gaugeProgressBarW"
-        style="@style/CustomProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginHorizontal="20dp"
-        android:max="100"
-        android:progress="0"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="day"/>
-
-    <!-- 버튼 -->
-    <Button
-        android:id="@+id/increaseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Increase Gauge"
-        android:layout_gravity="center"/>
+    tools:context=".GraphActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,4 +38,5 @@
             android:background="@android:color/transparent"
             android:src="@drawable/graph_filled" />
     </LinearLayout>
+
 </LinearLayout>

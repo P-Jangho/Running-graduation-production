@@ -2,10 +2,13 @@ package jp.ac.jec.cm0135.running;
 
 import static jp.ac.jec.cm0135.running.BuildConfig.MY_KEY;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,11 +26,29 @@ public class WeatherActivity extends AppCompatActivity {
     private static final String API_KEY = MY_KEY;
     private double latitude;
     private double longitude;
+    ImageView[] weatherViews = new ImageView[6];
+    TextView[] textViews = new TextView[6];
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+
+        // Initialize ImageView array elements
+        weatherViews[0] = findViewById(R.id.weather1);
+        weatherViews[1] = findViewById(R.id.weather2);
+        weatherViews[2] = findViewById(R.id.weather3);
+        weatherViews[3] = findViewById(R.id.weather4);
+        weatherViews[4] = findViewById(R.id.weather5);
+        weatherViews[5] = findViewById(R.id.weather6);
+
+        textViews[0] = findViewById(R.id.text1);
+        textViews[1] = findViewById(R.id.text2);
+        textViews[2] = findViewById(R.id.text3);
+        textViews[3] = findViewById(R.id.text4);
+        textViews[4] = findViewById(R.id.text5);
+        textViews[5] = findViewById(R.id.text6);
 
         Intent intent = getIntent();
         latitude = intent.getDoubleExtra("lat", 0.0);
@@ -82,19 +103,30 @@ public class WeatherActivity extends AppCompatActivity {
                 JsonArray daysArray = jsonObject.getAsJsonArray("days");
 
                 if (daysArray != null && daysArray.size() > 0) {
-                    // "days" 배열의 첫 번째 요소 가져오기
-                    JsonObject firstDayObject = daysArray.get(0).getAsJsonObject();
 
-                    // "temp"과 "icon" 필드 추출
-                    double temp = firstDayObject.getAsJsonPrimitive("temp").getAsDouble();
-                    String icon = firstDayObject.getAsJsonPrimitive("icon").getAsString();
+                    for (int i = 1; i < 7; i++) {
+                        Log.i("aaa", "ccc " + i);
+                        JsonObject firstDayObject = daysArray.get(i).getAsJsonObject();
 
-                    // UI 업데이트를 메인 스레드에서 수행
-                    runOnUiThread(() -> {
-                        // 날씨 정보를 TextView에 표시
-                        String weatherInfo = "날씨: " + icon + "\n온도: " + temp + "°C";
-//                        weatherInfoTextView.setText(weatherInfo);
-                    });
+                        String datetime = firstDayObject.getAsJsonPrimitive("datetime").getAsString();
+                        double temp = firstDayObject.getAsJsonPrimitive("temp").getAsDouble();
+                        String icon = firstDayObject.getAsJsonPrimitive("icon").getAsString();
+
+//                    UI 업데이트를 메인 스레드에서 수행
+                        int finalI = i;
+                        runOnUiThread(() -> {
+                            if (icon.equals("partly-cloudy-day")) {
+                                weatherViews[finalI - 1].setImageResource(R.drawable.cloud);
+                            }else if (icon.equals("cloudy")) {
+                                weatherViews[finalI - 1].setImageResource(R.drawable.cloudy);
+                            }
+
+                            String weatherInfo = "날짜: " + datetime + "\n날씨: " + icon + "\n온도: " + temp + "°C";
+                            textViews[finalI - 1].setText(weatherInfo);
+                        });
+
+                    }
+
                 } else {
                     Log.e("WeatherActivity", "No data available in 'days' array");
                 }

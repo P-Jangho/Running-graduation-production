@@ -41,15 +41,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateTextView;
     private ProgressBar progressBar;
     private TextView progressText;
-    int i = 0;
-
     private Button btnStart;
     private ImageButton btnSet;
     private ImageView sunImageView;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private FusedLocationProviderClient fusedLocationClient;
-    private TextView weatherInfoTextView; // 추가된 부분
+    private TextView weatherInfoTextView;
     private static final String API_KEY = MY_KEY;
     private static final String API_KEY2 = MY_KEY2;
     private double latitude;
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         btnSet = findViewById(R.id.btnSet);
         sunImageView = findViewById(R.id.sunImageView);
 
-        weatherInfoTextView = findViewById(R.id.weatherInfoTextView); // 추가된 부분
+        weatherInfoTextView = findViewById(R.id.weatherInfoTextView);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -92,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy / MM / dd", Locale.getDefault());
         String currentDate = dateFormat.format(calendar.getTime());
 
-        // TextView에 날짜 표시
         dateTextView.setText(currentDate);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
