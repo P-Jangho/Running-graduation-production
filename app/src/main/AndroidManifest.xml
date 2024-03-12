@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -15,37 +18,75 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Running"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
-            android:name=".GraphActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CalendarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".WeatherActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GaugeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TimeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RunningActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".GaugeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".CalendarActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".GraphActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RunningActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".RunningService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".TimeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".WeatherActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RefreshActivity"
+            android:exported="false" />
+
+        <receiver
+            android:name=".BootBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".WeatherJobService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver android:name=".AlarmReceiver" />
     </application>
 
 </manifest>

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/linearlayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:paddingTop="10dp">
 
     <ImageButton
         android:id="@+id/btnSet"
@@ -20,16 +22,16 @@
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="오늘의 날짜"
-        android:textSize="15dp"
-        android:textStyle="bold"
+        android:text="日付"
+        android:textSize="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/font1"/>
 
     <ImageView
         android:id="@+id/sunImageView"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:src="@drawable/sun"
         android:contentDescription="Sun Icon"/>
 
@@ -37,20 +39,51 @@
         android:id="@+id/weatherInfoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="오늘의 날씨"
-        android:layout_marginTop="10dp"/>
+        android:text="今日の気温"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/font2"/>
 
     <TextView
+        android:id="@+id/weatherInfoTextViewF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="시간설정 및 추천시간"
-        android:layout_marginTop="20dp"/>
+        android:text="体感気温"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/font2"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/recommendTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="時間を設定してください"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/font4"/>
+
+        <ImageButton
+            android:id="@+id/btnClock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_access_time_24"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="20dp">
 
         <RelativeLayout
             android:id="@+id/progress_layout"
@@ -58,7 +91,6 @@
             android:layout_height="200dp"
             android:layout_weight="1">
 
-            <!--progress bar implementation-->
             <ProgressBar
                 android:id="@+id/progress_bar"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -66,22 +98,39 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/circular_shape"
                 android:indeterminate="false"
-                android:progressDrawable="@drawable/circular_progress_bar"
+                android:progressDrawable="@drawable/circular_progress_bar_day"
                 android:textAlignment="center" />
 
-            <!--Text implementation in center of the progress bar-->
-            <TextView
-                android:id="@+id/progress_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:text="000"
-                android:textColor="@color/material_on_background_emphasis_high_type"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DAY"
+                    android:textSize="35sp"
+                    android:fontFamily="@font/font3"/>
+
+                <TextView
+                    android:id="@+id/progress_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="000"
+                    android:textColor="@color/material_on_background_emphasis_high_type"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/font3"/>
+            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -90,7 +139,6 @@
             android:layout_height="200dp"
             android:layout_weight="1">
 
-            <!--progress bar implementation-->
             <ProgressBar
                 android:id="@+id/progress_bar1"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -98,29 +146,62 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/circular_shape"
                 android:indeterminate="false"
-                android:progressDrawable="@drawable/circular_progress_bar"
+                android:progressDrawable="@drawable/circular_progress_bar_week"
                 android:textAlignment="center" />
 
-            <!--Text implementation in center of the progress bar-->
-            <TextView
-                android:id="@+id/progress_text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:text="000"
-                android:textColor="@color/material_on_background_emphasis_high_type"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WEEK"
+                    android:textSize="35sp"
+                    android:fontFamily="@font/font3"/>
+
+                <TextView
+                    android:id="@+id/progress_text_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="000"
+                    android:textColor="@color/material_on_background_emphasis_high_type"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/font3"/>
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="START"
+            android:backgroundTint="#06F410"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/font5" />
+    </LinearLayout>
+
     <Button
-        android:id="@+id/btnStart"
+        android:id="@+id/btnRefresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="START"/>
+        android:layout_gravity="end|bottom"
+        android:text="testButton"/>
 
 </LinearLayout>

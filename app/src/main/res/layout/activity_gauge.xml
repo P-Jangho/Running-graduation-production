@@ -7,14 +7,21 @@
     android:orientation="vertical"
     tools:context=".GaugeActivity">
 
-    <!-- 게이지 바 -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_circle_left_24"
+        android:background="@android:color/transparent"
+        android:layout_margin="15dp"/>
+
     <ProgressBar
-        android:id="@+id/gaugeProgressBar"
-        style="@style/CustomProgressBar"
+        android:id="@+id/gaugeProgressBarT"
+        style="@style/CustomProgressBarToday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginHorizontal="20dp"
         android:max="100"
         android:progress="0"/>
@@ -23,15 +30,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="week"/>
+        android:text="TODAY"
+        android:textSize="25dp"
+        android:fontFamily="@font/font3"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/txtSteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:fontFamily="@font/font2"/>
+
+    <TextView
+        android:id="@+id/txtDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:fontFamily="@font/font2"/>
+
+    <TextView
+        android:id="@+id/txtCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:fontFamily="@font/font2"/>
 
     <ProgressBar
         android:id="@+id/gaugeProgressBarW"
-        style="@style/CustomProgressBar"
+        style="@style/CustomProgressBarWeek"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginHorizontal="20dp"
         android:max="100"
         android:progress="0"/>
@@ -40,44 +74,76 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="day"/>
+        android:text="WEEK"
+        android:textSize="25dp"
+        android:fontFamily="@font/font3"
+        android:layout_marginBottom="5dp"/>
 
-    <!-- 버튼 -->
-    <Button
-        android:id="@+id/increaseButton"
+    <TextView
+        android:id="@+id/txtStepsWeek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Increase Gauge"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:text=""
+        android:fontFamily="@font/font2"/>
+
+    <TextView
+        android:id="@+id/txtDistanceWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:fontFamily="@font/font2"/>
+
+    <TextView
+        android:id="@+id/txtCaloriesWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:fontFamily="@font/font2"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="150dp">
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="50dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/baseline_home_24" />
 
         <ImageButton
             android:id="@+id/btnGauge"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_table_rows_24"
+            android:layout_weight="1"
+            android:layout_marginRight="30dp"
             android:background="@android:color/transparent"
-            android:layout_marginRight="30dp" />
+            android:src="@drawable/baseline_table_rows_24" />
 
         <ImageButton
             android:id="@+id/btnCal"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="100dp"
-            android:src="@drawable/baseline_calendar_month_24"
+            android:layout_weight="1"
+            android:layout_marginRight="30dp"
             android:background="@android:color/transparent"
-            android:layout_marginRight="30dp"/>
+            android:src="@drawable/baseline_calendar_month_24" />
 
         <ImageButton
             android:id="@+id/btnGraph"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="100dp"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:src="@drawable/graph_filled" />
     </LinearLayout>

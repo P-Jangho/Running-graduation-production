@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 배경 바 -->
+    <item android:id="@android:id/background"
+        android:height="50dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#E4D5D5"/>
+            <corners android:radius="100dp"/> <!-- 바의 모서리를 둥글게 만듦 -->
+        </shape>
+    </item>
+
+    <!-- 실제 게이지 바 -->
+    <item
+        android:id="@android:id/progress"
+        android:height="50dp"> <!-- 조절된 두께 -->
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="@color/purple_500"/>
+                <corners android:radius="100dp"/>
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

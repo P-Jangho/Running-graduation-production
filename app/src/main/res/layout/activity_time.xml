@@ -8,19 +8,20 @@
     tools:context=".TimeActivity">
 
     <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="今日は"
-    android:textSize="40dp"
-    android:layout_marginTop="50dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="今日は"
+        android:textSize="40dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/font2"/>
 
     <Spinner
         android:id="@+id/hourSpinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,7 +29,8 @@
         android:layout_gravity="center"
         android:text="時から"
         android:textSize="40dp"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/font2"/>
 
     <Spinner
         android:id="@+id/hourSpinner2"
@@ -43,14 +45,35 @@
         android:layout_gravity="center"
         android:text="時まで歩けない"
         android:textSize="40dp"
-        android:layout_marginTop="50dp"/>
-
-    <Button
-        android:id="@+id/btnOK"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:text="OK"/>
+        android:fontFamily="@font/font2"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#829532"
+            android:text="OK"
+            android:textStyle="bold"
+            android:fontFamily="@font/font5"/>
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:backgroundTint="#4845A1"
+            android:text="RESET"
+            android:textStyle="bold"
+            android:fontFamily="@font/font5"/>
+    </LinearLayout>
 </LinearLayout>

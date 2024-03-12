@@ -4,10 +4,14 @@ import static jp.ac.jec.cm0135.running.BuildConfig.MY_KEY;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,11 +27,13 @@ import java.net.URL;
 
 public class WeatherActivity extends AppCompatActivity {
 
+    private LinearLayout layoutWeather;
     private static final String API_KEY = MY_KEY;
     private double latitude;
     private double longitude;
-    ImageView[] weatherViews = new ImageView[6];
-    TextView[] textViews = new TextView[6];
+    ImageView[] weatherViews = new ImageView[7];
+    TextView[] textViews = new TextView[7];
+    private ImageButton btnBack;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -35,26 +41,42 @@ public class WeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
+        layoutWeather = findViewById(R.id.layoutWeather);
         // Initialize ImageView array elements
-        weatherViews[0] = findViewById(R.id.weather1);
-        weatherViews[1] = findViewById(R.id.weather2);
-        weatherViews[2] = findViewById(R.id.weather3);
-        weatherViews[3] = findViewById(R.id.weather4);
-        weatherViews[4] = findViewById(R.id.weather5);
-        weatherViews[5] = findViewById(R.id.weather6);
+        weatherViews[0] = findViewById(R.id.weatherToday);
+        weatherViews[1] = findViewById(R.id.weather1);
+        weatherViews[2] = findViewById(R.id.weather2);
+        weatherViews[3] = findViewById(R.id.weather3);
+        weatherViews[4] = findViewById(R.id.weather4);
+        weatherViews[5] = findViewById(R.id.weather5);
+        weatherViews[6] = findViewById(R.id.weather6);
 
-        textViews[0] = findViewById(R.id.text1);
-        textViews[1] = findViewById(R.id.text2);
-        textViews[2] = findViewById(R.id.text3);
-        textViews[3] = findViewById(R.id.text4);
-        textViews[4] = findViewById(R.id.text5);
-        textViews[5] = findViewById(R.id.text6);
+        textViews[0] = findViewById(R.id.text);
+        textViews[1] = findViewById(R.id.text1);
+        textViews[2] = findViewById(R.id.text2);
+        textViews[3] = findViewById(R.id.text3);
+        textViews[4] = findViewById(R.id.text4);
+        textViews[5] = findViewById(R.id.text5);
+        textViews[6] = findViewById(R.id.text6);
+
+        btnBack = findViewById(R.id.btnBack);
 
         Intent intent = getIntent();
         latitude = intent.getDoubleExtra("lat", 0.0);
         longitude = intent.getDoubleExtra("lon", 0.0);
+        // Weather 액티비티에서의 코드
+        int backgroundColor = getIntent().getIntExtra("backgroundColor", Color.WHITE);
+        layoutWeather.setBackgroundColor(backgroundColor);
 
         new WeatherTask().execute();
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WeatherActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private class WeatherTask extends AsyncTask<Void, Void, Void> {
@@ -104,7 +126,7 @@ public class WeatherActivity extends AppCompatActivity {
 
                 if (daysArray != null && daysArray.size() > 0) {
 
-                    for (int i = 1; i < 7; i++) {
+                    for (int i = 0; i < 7; i++) {
                         Log.i("aaa", "ccc " + i);
                         JsonObject firstDayObject = daysArray.get(i).getAsJsonObject();
 
@@ -116,13 +138,21 @@ public class WeatherActivity extends AppCompatActivity {
                         int finalI = i;
                         runOnUiThread(() -> {
                             if (icon.equals("partly-cloudy-day")) {
-                                weatherViews[finalI - 1].setImageResource(R.drawable.cloud);
+                                weatherViews[finalI].setImageResource(R.drawable.cloud);
                             }else if (icon.equals("cloudy")) {
-                                weatherViews[finalI - 1].setImageResource(R.drawable.cloudy);
+                                weatherViews[finalI].setImageResource(R.drawable.cloudy);
+                            }else if (icon.equals("rain")) {
+                                weatherViews[finalI].setImageResource(R.drawable.rain);
+                            }else if (icon.equals("snow")) {
+                                weatherViews[finalI].setImageResource(R.drawable.snow);
                             }
+//                            else if (icon.equals("wind")) {
+//                                weatherViews[finalI].setImageResource(R.drawable.wind);
+//                            }
 
-                            String weatherInfo = "날짜: " + datetime + "\n날씨: " + icon + "\n온도: " + temp + "°C";
-                            textViews[finalI - 1].setText(weatherInfo);
+                            String weatherInfo = datetime +  "\n" + temp + "°C";
+//                            "\n" + icon +
+                            textViews[finalI].setText(weatherInfo);
                         });
 
                     }

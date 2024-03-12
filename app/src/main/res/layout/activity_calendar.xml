@@ -1,48 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- activity_calendar.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CalendarActivity"
-    android:gravity="center">
+    tools:context=".CalendarActivity">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_circle_left_24"
+        android:background="@android:color/transparent"
+        android:layout_margin="15dp"/>
 
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Date: "
+        android:textSize="18sp"
+        android:fontFamily="@font/font2"/>
+
+    <TextView
+        android:id="@+id/txtSteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Steps: "
+        android:textSize="18sp"
+        android:fontFamily="@font/font2"/>
+
+    <TextView
+        android:id="@+id/txtCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Calories: "
+        android:textSize="18sp"
+        android:fontFamily="@font/font2"/>
+
+    <TextView
+        android:id="@+id/txtDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Distance: "
+        android:textSize="18sp"
+        android:fontFamily="@font/font2"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="150dp">
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="50dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/baseline_home_24" />
 
         <ImageButton
             android:id="@+id/btnGauge"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_table_rows_24"
+            android:layout_weight="1"
+            android:layout_marginRight="30dp"
             android:background="@android:color/transparent"
-            android:layout_marginRight="30dp" />
+            android:src="@drawable/baseline_table_rows_24" />
 
         <ImageButton
             android:id="@+id/btnCal"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="100dp"
-            android:src="@drawable/baseline_calendar_month_24"
+            android:layout_weight="1"
+            android:layout_marginRight="30dp"
             android:background="@android:color/transparent"
-            android:layout_marginRight="30dp"/>
+            android:src="@drawable/baseline_calendar_month_24" />
 
         <ImageButton
             android:id="@+id/btnGraph"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="100dp"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:src="@drawable/graph_filled" />
     </LinearLayout>
-
 </LinearLayout>

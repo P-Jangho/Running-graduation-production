@@ -6,17 +6,19 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".RunningActivity">
+    tools:context=".RunningActivity"
+    android:background="#4FF3E5"
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="오늘의 날짜"
-        android:textSize="15dp"
-        android:textStyle="bold"
+        android:text="日付"
+        android:textSize="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/font1"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
@@ -27,17 +29,22 @@
         android:layout_marginTop="50dp"/>
 
     <TextView
+        android:id="@+id/txtTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="오늘의 기온"
+        android:text="気温"
+        android:textSize="30dp"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/font2"/>
 
     <TextView
         android:id="@+id/sensor"
         android:textSize="100sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:fontFamily="@font/font3"
         android:text="0"/>
 
     <Button
@@ -45,8 +52,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="STOP"/>
-
-
-
+        android:text="STOP"
+        android:textColor="@color/black"
+        android:backgroundTint="#97B2A5"
+        android:textStyle="bold"
+        android:fontFamily="@font/font5"/>
 </LinearLayout>
